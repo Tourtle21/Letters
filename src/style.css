@@ -1,0 +1,17 @@
+.square {
+	height: 100px;
+	width: 100px;
+	background: olivedrab;
+	color: blue;
+	margin: 1px;
+	font-size: 20px;
+}
+.center {
+	height: 400px;
+	width: 400px;
+	margin: auto;
+	border: 5px solid black;
+	font-size: 100px;
+	line-height: 400px;
+	text-align: center;
+}

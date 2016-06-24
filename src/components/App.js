@@ -1,16 +1,32 @@
 "use strict";
 
 var React = require("react");
-var Letters = require("../mockApi/letterData");
+var Center = require("./center/Center.js");
+var LetterList = require("./LetterList/LetterList");
 
 
 var App = React.createClass({
+	getInitialState: function() {
+		return {
+			letter: ""
+		}
+	},
+	display: function(letter) {
+		console.log({letter}.letter.letter)
+		this.setState({
+			letter: {letter}.letter.letter
+		})
+	},
+
 	render: function() {
 		return (
 			<div>
-				<div>
-					<Letters />
-				</div>
+				<LetterList 
+					display={this.display}
+				/>
+				<Center 
+					letter={this.state.letter}
+				/>
 			</div>
 		)
 	}

@@ -1,7 +1,7 @@
 var React = require("react");
-var Letters = ["a", "b", "c", "d", "e", "f", "g", "h",
+var Letters = {letters: ["a", "b", "c", "d", "e", "f", "g", "h",
 		"i", "j", "k", "l", "m", "n", "o",
 		"p", "q", "r", "s", "t", "u", "v", "w", "x",
-		"y", "z"]
+		"y", "z"]}
 
 module.exports = Letters
