@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react");
-var Letters = require("../mockApi/letterData").letters;
+var Letters = require("../../mockApi/letterData").letters;
 
 var LetterList = React.createClass({
 	LettersBox: function(letter) {
@@ -13,7 +13,9 @@ var LetterList = React.createClass({
 	},
 	render: function() {
 		return (
-			{Letters.map(LettersBox, this)}
+			<div id="letters">
+				{Letters.map(this.LettersBox, this)}
+			</div>
 		)
 	}
 })

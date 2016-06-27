@@ -24,6 +24,7 @@ var App = React.createClass({
 				<LetterList 
 					display={this.display}
 				/>
+				<div id="controlBar"></div>
 				<Center 
 					letter={this.state.letter}
 				/>

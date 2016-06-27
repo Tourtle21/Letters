@@ -19694,8 +19694,8 @@ module.exports = require('./lib/React');
 "use strict";
 
 var React = require("react");
-var Letters = require("../mockApi/letterData").letters;
 var Center = require("./center/Center.js");
+var LetterList = require("./LetterList/LetterList");
 
 
 var App = React.createClass({displayName: "App",
@@ -19710,18 +19710,14 @@ var App = React.createClass({displayName: "App",
 			letter: {letter}.letter.letter
 		})
 	},
-	LettersBox: function(letter) {
-		return (
-			React.createElement("div", {className: "btn square", onClick: this.display.bind(this, {letter}), key: letter}, 
-				letter
-			)
-		)
-	},
 
 	render: function() {
 		return (
 			React.createElement("div", null, 
-				Letters.map(this.LettersBox, this), 
+				React.createElement(LetterList, {
+					display: this.display}
+				), 
+				React.createElement("div", {id: "controlBar"}), 
 				React.createElement(Center, {
 					letter: this.state.letter}
 				)
@@ -19732,7 +19728,32 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../mockApi/letterData":171,"./center/Center.js":169,"react":167}],169:[function(require,module,exports){
+},{"./LetterList/LetterList":169,"./center/Center.js":170,"react":167}],169:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Letters = require("../../mockApi/letterData").letters;
+
+var LetterList = React.createClass({displayName: "LetterList",
+	LettersBox: function(letter) {
+		return (
+			React.createElement("div", {className: "btn square", onClick: this.props.display.bind(this, {letter}), key: letter}, 
+				letter
+			)
+		)
+	},
+	render: function() {
+		return (
+			React.createElement("div", {id: "letters"}, 
+				Letters.map(this.LettersBox, this)
+			)
+		)
+	}
+})
+
+module.exports = LetterList;
+
+},{"../../mockApi/letterData":172,"react":167}],170:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -19747,7 +19768,7 @@ var Center = React.createClass({displayName: "Center",
 
 module.exports = Center;
 
-},{"react":167}],170:[function(require,module,exports){
+},{"react":167}],171:[function(require,module,exports){
 "use strict";
 
 var ReactDOM = require("react-dom");
@@ -19756,7 +19777,7 @@ var App = require("./components/App.js")
 
 ReactDOM.render(React.createElement(App, null), document.getElementById("app"))
 
-},{"./components/App.js":168,"react":167,"react-dom":3}],171:[function(require,module,exports){
+},{"./components/App.js":168,"react":167,"react-dom":3}],172:[function(require,module,exports){
 var React = require("react");
 var Letters = {letters: ["a", "b", "c", "d", "e", "f", "g", "h",
 		"i", "j", "k", "l", "m", "n", "o",
@@ -19765,4 +19786,4 @@ var Letters = {letters: ["a", "b", "c", "d", "e", "f", "g", "h",
 
 module.exports = Letters
 
-},{"react":167}]},{},[170]);
+},{"react":167}]},{},[171]);
