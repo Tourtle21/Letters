@@ -244,4 +244,30 @@ button.toast-close-button {
     left: calc(0% + (100% * (1/8)));
     border: black 2px solid;
     border-radius: 7px;
+    display: flex;
+    align-items: center;
+}
+#color {
+	height: 0px;
+	width: 0px;
+	border-right: 10px solid green;
+	border-left: 10px solid blue;
+	border-top: 10px solid yellow;
+	border-bottom: 10px solid orange;
+	margin-left: 10px;
+	align-self: center;
+}
+#rotate {
+	height: 20px;
+	width: 20px;
+	background: url(https://cdn3.iconfinder.com/data/icons/metro-design/512/rotate_right-512.png);
+	background-size: cover;
+	margin-left: 10px;
+}
+#sound {
+	height: 20px;
+	width: 20px;
+	background: url(https://hscweb3.hsc.usf.edu/wp-content/uploads/2015/03/COPH-sound-icon-png.png);
+	background-size: cover;
+	margin:0 10px;
 }

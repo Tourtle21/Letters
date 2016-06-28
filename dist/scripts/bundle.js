@@ -19691,18 +19691,32 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 },{"./lib/React":29}],168:[function(require,module,exports){
-"use strict";
 
 var React = require("react");
 var Center = require("./center/Center.js");
 var LetterList = require("./LetterList/LetterList");
-
+var ControlBar = require("./LetterList/ControlBar")
 
 var App = React.createClass({displayName: "App",
+
 	getInitialState: function() {
 		return {
 			letter: ""
 		}
+	},
+	changeCase: function() {
+		console.log(this.state.letter)
+		if (this.state.letter == this.state.letter.toUpperCase()) {
+			this.setState({
+				letter: this.state.letter.toUpperCase() 
+			})
+		}
+		else {
+			this.setState({
+				letter: this.state.letter.toLowerCase() 
+			})
+		}
+		
 	},
 	display: function(letter) {
 		console.log({letter}.letter.letter)
@@ -19717,7 +19731,9 @@ var App = React.createClass({displayName: "App",
 				React.createElement(LetterList, {
 					display: this.display}
 				), 
-				React.createElement("div", {id: "controlBar"}), 
+				React.createElement(ControlBar, {
+					changeCase: this.changeCase}
+				), 
 				React.createElement(Center, {
 					letter: this.state.letter}
 				)
@@ -19728,8 +19744,28 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"./LetterList/LetterList":169,"./center/Center.js":170,"react":167}],169:[function(require,module,exports){
+},{"./LetterList/ControlBar":169,"./LetterList/LetterList":170,"./center/Center.js":171,"react":167}],169:[function(require,module,exports){
 "use strict";
+
+var React = require("react");
+
+var ControlBar = React.createClass({displayName: "ControlBar",
+	render: function() {
+		return (
+			React.createElement("div", {id: "controlBar"}, 
+				React.createElement("div", {id: "color"}), 
+				React.createElement("div", {id: "rotate"}), 
+				React.createElement("div", {id: "sound"}), 
+				React.createElement("div", {onClick: this.props.changeCase}, "Aa")
+			)
+		)
+	}
+});
+
+module.exports = ControlBar;
+
+},{"react":167}],170:[function(require,module,exports){
+
 
 var React = require("react");
 var Letters = require("../../mockApi/letterData").letters;
@@ -19737,7 +19773,7 @@ var Letters = require("../../mockApi/letterData").letters;
 var LetterList = React.createClass({displayName: "LetterList",
 	LettersBox: function(letter) {
 		return (
-			React.createElement("div", {className: "btn square", onClick: this.props.display.bind(this, {letter}), key: letter}, 
+			React.createElement("div", {className: "btn square", onClick: this.props.display.bind(null, {letter}), key: letter}, 
 				letter
 			)
 		)
@@ -19753,7 +19789,7 @@ var LetterList = React.createClass({displayName: "LetterList",
 
 module.exports = LetterList;
 
-},{"../../mockApi/letterData":172,"react":167}],170:[function(require,module,exports){
+},{"../../mockApi/letterData":173,"react":167}],171:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -19768,7 +19804,7 @@ var Center = React.createClass({displayName: "Center",
 
 module.exports = Center;
 
-},{"react":167}],171:[function(require,module,exports){
+},{"react":167}],172:[function(require,module,exports){
 "use strict";
 
 var ReactDOM = require("react-dom");
@@ -19777,7 +19813,7 @@ var App = require("./components/App.js")
 
 ReactDOM.render(React.createElement(App, null), document.getElementById("app"))
 
-},{"./components/App.js":168,"react":167,"react-dom":3}],172:[function(require,module,exports){
+},{"./components/App.js":168,"react":167,"react-dom":3}],173:[function(require,module,exports){
 var React = require("react");
 var Letters = {letters: ["a", "b", "c", "d", "e", "f", "g", "h",
 		"i", "j", "k", "l", "m", "n", "o",
@@ -19786,4 +19822,4 @@ var Letters = {letters: ["a", "b", "c", "d", "e", "f", "g", "h",
 
 module.exports = Letters
 
-},{"react":167}]},{},[171]);
+},{"react":167}]},{},[172]);
