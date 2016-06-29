@@ -14,7 +14,7 @@ var LetterList = React.createClass({
 	render: function() {
 		return (
 			<div id="letters">
-				{Letters.map(this.LettersBox, this)}
+				{this.props.letters.map(this.LettersBox, this)}
 			</div>
 		)
 	}

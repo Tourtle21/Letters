@@ -19696,17 +19696,44 @@ var React = require("react");
 var Center = require("./center/Center.js");
 var LetterList = require("./LetterList/LetterList");
 var ControlBar = require("./LetterList/ControlBar")
+var Letters = require("../mockApi/letterData").letters;
 
 var App = React.createClass({displayName: "App",
-
 	getInitialState: function() {
 		return {
-			letter: ""
+			letters: Letters,
+			letter: "",
+			deg: 90,
+			index: 1,
+			color: ['black','red', 'blue', 'orange', 'purple', 'green','yellow','pink']
 		}
 	},
+	changeColor: function() {
+		if (this.state.index < 7) {
+			this.setState({
+				index: this.state.index + 1
+			})
+		} else {
+			this.setState({
+				index: 0
+			})
+		}
+		document.getElementById('center').style.color = this.state.color[this.state.index]
+		console.log(document.getElementById('center').style.col)
+	},
+	rotate: function() {
+		this.setState({
+			deg: this.state.deg + 90
+		})
+		document.getElementById('center').style.webkitTransform = 'rotate(' + this.state.deg +'deg)';
+	},
 	changeCase: function() {
-		console.log(this.state.letter)
-		if (this.state.letter == this.state.letter.toUpperCase()) {
+		newLetters = [];
+		var type = true;
+		this.setState({
+				letters: []
+		})
+		if (this.state.letter !== this.state.letter.toUpperCase()) {
 			this.setState({
 				letter: this.state.letter.toUpperCase() 
 			})
@@ -19715,7 +19742,21 @@ var App = React.createClass({displayName: "App",
 			this.setState({
 				letter: this.state.letter.toLowerCase() 
 			})
+			type = false;
 		}
+		if (this.state.letters[0] == this.state.letters[0].toLowerCase()) {
+			for (var i = 0; i <= this.state.letters.length - 1; i++) {
+				newLetters.push(this.state.letters[i].toUpperCase())
+			}
+		} else {
+			for (var i = 0; i <= this.state.letters.length - 1; i++) {
+				newLetters.push(this.state.letters[i].toLowerCase())
+			}
+		}
+		
+		this.setState({
+			letters: newLetters
+		});
 		
 	},
 	display: function(letter) {
@@ -19729,10 +19770,13 @@ var App = React.createClass({displayName: "App",
 		return (
 			React.createElement("div", null, 
 				React.createElement(LetterList, {
-					display: this.display}
+					display: this.display, 
+					letters: this.state.letters}
 				), 
 				React.createElement(ControlBar, {
-					changeCase: this.changeCase}
+					changeCase: this.changeCase, 
+					rotate: this.rotate, 
+					changeColor: this.changeColor}
 				), 
 				React.createElement(Center, {
 					letter: this.state.letter}
@@ -19744,17 +19788,21 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"./LetterList/ControlBar":169,"./LetterList/LetterList":170,"./center/Center.js":171,"react":167}],169:[function(require,module,exports){
+//
+
+},{"../mockApi/letterData":175,"./LetterList/ControlBar":169,"./LetterList/LetterList":170,"./center/Center.js":171,"react":167}],169:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
+var ColorTool = require("../tools/colorTool")
+var RotateTool = require("../tools/rotateTool")
 
 var ControlBar = React.createClass({displayName: "ControlBar",
 	render: function() {
 		return (
 			React.createElement("div", {id: "controlBar"}, 
-				React.createElement("div", {id: "color"}), 
-				React.createElement("div", {id: "rotate"}), 
+				React.createElement(ColorTool, {changeColor: this.props.changeColor}), 
+				React.createElement(RotateTool, {rotate: this.props.rotate}), 
 				React.createElement("div", {id: "sound"}), 
 				React.createElement("div", {onClick: this.props.changeCase}, "Aa")
 			)
@@ -19764,7 +19812,7 @@ var ControlBar = React.createClass({displayName: "ControlBar",
 
 module.exports = ControlBar;
 
-},{"react":167}],170:[function(require,module,exports){
+},{"../tools/colorTool":172,"../tools/rotateTool":173,"react":167}],170:[function(require,module,exports){
 
 
 var React = require("react");
@@ -19781,7 +19829,7 @@ var LetterList = React.createClass({displayName: "LetterList",
 	render: function() {
 		return (
 			React.createElement("div", {id: "letters"}, 
-				Letters.map(this.LettersBox, this)
+				this.props.letters.map(this.LettersBox, this)
 			)
 		)
 	}
@@ -19789,7 +19837,7 @@ var LetterList = React.createClass({displayName: "LetterList",
 
 module.exports = LetterList;
 
-},{"../../mockApi/letterData":173,"react":167}],171:[function(require,module,exports){
+},{"../../mockApi/letterData":175,"react":167}],171:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -19797,7 +19845,7 @@ var React = require("react");
 var Center = React.createClass({displayName: "Center",
 	render: function() {
 		return (
-			React.createElement("div", {className: "center"}, this.props.letter)
+			React.createElement("div", {id: "center"}, this.props.letter)
 		)
 	}
 })
@@ -19805,6 +19853,36 @@ var Center = React.createClass({displayName: "Center",
 module.exports = Center;
 
 },{"react":167}],172:[function(require,module,exports){
+'use strict';
+
+var React = require("react");
+
+var ColorTool = React.createClass({displayName: "ColorTool",
+	render: function() {
+		return (
+			React.createElement("div", {onClick: this.props.changeColor, id: "color"})
+		)
+	}
+})
+
+module.exports = ColorTool;
+
+},{"react":167}],173:[function(require,module,exports){
+'use strict';
+
+var React = require("react");
+
+var RotateTool = React.createClass({displayName: "RotateTool",
+	render: function() {
+		return (
+			React.createElement("div", {onClick: this.props.rotate, id: "rotate"})
+		)
+	}
+})
+
+module.exports = RotateTool;
+
+},{"react":167}],174:[function(require,module,exports){
 "use strict";
 
 var ReactDOM = require("react-dom");
@@ -19813,7 +19891,7 @@ var App = require("./components/App.js")
 
 ReactDOM.render(React.createElement(App, null), document.getElementById("app"))
 
-},{"./components/App.js":168,"react":167,"react-dom":3}],173:[function(require,module,exports){
+},{"./components/App.js":168,"react":167,"react-dom":3}],175:[function(require,module,exports){
 var React = require("react");
 var Letters = {letters: ["a", "b", "c", "d", "e", "f", "g", "h",
 		"i", "j", "k", "l", "m", "n", "o",
@@ -19822,4 +19900,4 @@ var Letters = {letters: ["a", "b", "c", "d", "e", "f", "g", "h",
 
 module.exports = Letters
 
-},{"react":167}]},{},[172]);
+},{"react":167}]},{},[174]);

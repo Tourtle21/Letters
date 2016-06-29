@@ -221,7 +221,7 @@ button.toast-close-button {
 	border: black solid 2px;
 	font-size: 20px;
 }
-.center {
+#center {
 	height: 400px;
 	width: 400px;
 	margin: auto;
