@@ -19703,13 +19703,13 @@ var App = React.createClass({displayName: "App",
 		return {
 			letters: Letters,
 			letter: "",
-			deg: 90,
 			index: 1,
-			color: ['black','red', 'blue', 'orange', 'purple', 'green','yellow','pink']
+			color: ['black','firebrick', 'dodgerblue', 'darkorange', 'darkorchid', 'limegreen','gold','deeppink', 'darkturquoise']
 		}
 	},
 	changeColor: function() {
-		if (this.state.index < 7) {
+		console.log(this.state.index, this.state.color.length - 1)
+		if (this.state.index < this.state.color.length - 1) {
 			this.setState({
 				index: this.state.index + 1
 			})
@@ -19718,14 +19718,12 @@ var App = React.createClass({displayName: "App",
 				index: 0
 			})
 		}
+		console.log(this.state.color[this.state.index])
 		document.getElementById('center').style.color = this.state.color[this.state.index]
-		console.log(document.getElementById('center').style.col)
 	},
 	rotate: function() {
-		this.setState({
-			deg: this.state.deg + 90
-		})
-		document.getElementById('center').style.webkitTransform = 'rotate(' + this.state.deg +'deg)';
+
+		document.getElementById('letter').classList.toggle('rotate');
 	},
 	changeCase: function() {
 		newLetters = [];
@@ -19735,12 +19733,12 @@ var App = React.createClass({displayName: "App",
 		})
 		if (this.state.letter !== this.state.letter.toUpperCase()) {
 			this.setState({
-				letter: this.state.letter.toUpperCase() 
+				letter: this.state.letter.toUpperCase()
 			})
 		}
 		else {
 			this.setState({
-				letter: this.state.letter.toLowerCase() 
+				letter: this.state.letter.toLowerCase()
 			})
 			type = false;
 		}
@@ -19753,11 +19751,11 @@ var App = React.createClass({displayName: "App",
 				newLetters.push(this.state.letters[i].toLowerCase())
 			}
 		}
-		
+
 		this.setState({
 			letters: newLetters
 		});
-		
+
 	},
 	display: function(letter) {
 		console.log({letter}.letter.letter)
@@ -19822,7 +19820,7 @@ var LetterList = React.createClass({displayName: "LetterList",
 	LettersBox: function(letter) {
 		return (
 			React.createElement("div", {className: "btn square", onClick: this.props.display.bind(null, {letter}), key: letter}, 
-				letter
+					letter
 			)
 		)
 	},
@@ -19845,7 +19843,11 @@ var React = require("react");
 var Center = React.createClass({displayName: "Center",
 	render: function() {
 		return (
-			React.createElement("div", {id: "center"}, this.props.letter)
+			React.createElement("div", {id: "center"}, 
+				React.createElement("div", {id: "letter"}, 
+					this.props.letter
+				)
+			)
 		)
 	}
 })

@@ -7,7 +7,7 @@ var LetterList = React.createClass({
 	LettersBox: function(letter) {
 		return (
 			<div className="btn square" onClick={this.props.display.bind(null, {letter})} key={letter}>
-				{letter}
+					{letter}
 			</div>
 		)
 	},

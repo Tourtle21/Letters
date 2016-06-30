@@ -10,13 +10,13 @@ var App = React.createClass({
 		return {
 			letters: Letters,
 			letter: "",
-			deg: 90,
 			index: 1,
-			color: ['black','red', 'blue', 'orange', 'purple', 'green','yellow','pink']
+			color: ['black','firebrick', 'dodgerblue', 'darkorange', 'darkorchid', 'limegreen','gold','deeppink', 'darkturquoise']
 		}
 	},
 	changeColor: function() {
-		if (this.state.index < 7) {
+		console.log(this.state.index, this.state.color.length - 1)
+		if (this.state.index < this.state.color.length - 1) {
 			this.setState({
 				index: this.state.index + 1
 			})
@@ -25,14 +25,12 @@ var App = React.createClass({
 				index: 0
 			})
 		}
+		console.log(this.state.color[this.state.index])
 		document.getElementById('center').style.color = this.state.color[this.state.index]
-		console.log(document.getElementById('center').style.col)
 	},
 	rotate: function() {
-		this.setState({
-			deg: this.state.deg + 90
-		})
-		document.getElementById('center').style.webkitTransform = 'rotate(' + this.state.deg +'deg)';
+
+		document.getElementById('letter').classList.toggle('rotate');
 	},
 	changeCase: function() {
 		newLetters = [];
@@ -42,12 +40,12 @@ var App = React.createClass({
 		})
 		if (this.state.letter !== this.state.letter.toUpperCase()) {
 			this.setState({
-				letter: this.state.letter.toUpperCase() 
+				letter: this.state.letter.toUpperCase()
 			})
 		}
 		else {
 			this.setState({
-				letter: this.state.letter.toLowerCase() 
+				letter: this.state.letter.toLowerCase()
 			})
 			type = false;
 		}
@@ -60,11 +58,11 @@ var App = React.createClass({
 				newLetters.push(this.state.letters[i].toLowerCase())
 			}
 		}
-		
+
 		this.setState({
 			letters: newLetters
 		});
-		
+
 	},
 	display: function(letter) {
 		console.log({letter}.letter.letter)
@@ -76,16 +74,16 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<LetterList 
+				<LetterList
 					display={this.display}
 					letters={this.state.letters}
 				/>
-				<ControlBar 
+				<ControlBar
 					changeCase={this.changeCase}
 					rotate={this.rotate}
 					changeColor={this.changeColor}
 				/>
-				<Center 
+				<Center
 					letter={this.state.letter}
 				/>
 			</div>

@@ -1,18 +1,30 @@
+body {
+	display: flex;
+	justify-content: center;
+}
 .square {
 	text-align: center;
 	height: auto;
 	width: calc(100% * (1/8));
-	background: olivedrab;
-	color: blue;
-	border: black solid 2px;
+	background: #83c337;
+	color: #fff;
+	border: solid #fff 2px;
 	font-size: 20px;
+	cursor: pointer;
+	transition: background 0.4s ease;
+}
+.btn.focus, .btn:focus, .btn:hover {
+	color: #fff;
+}
+.square:hover {
+	background: #27aad8;
 }
 #center {
 	height: 400px;
 	width: 400px;
 	margin: auto;
-	border: 5px solid black;
-	font-size: 100px;
+	border: solid #27aad8 5px;
+	font-size: 20rem;
 	line-height: 400px;
 	text-align: center;
 }
@@ -24,11 +36,11 @@
 #controlBar {
 	height: 46px;
     width: calc(100% - (100% * (1/8) * 2) + 2px);
-    background: red;
+    background: #fb7039;
     position: relative;
     top: -45px;
     left: calc(0% + (100% * (1/8)));
-    border: black 2px solid;
+    border: solid #fff 2px;
     border-radius: 7px;
     display: flex;
     align-items: center;
@@ -56,4 +68,10 @@
 	background: url(https://hscweb3.hsc.usf.edu/wp-content/uploads/2015/03/COPH-sound-icon-png.png);
 	background-size: cover;
 	margin:0 10px;
+}
+#letter {
+	transition: transform 1s ease;
+}
+.rotate {
+	transform: rotate(360deg);
 }
